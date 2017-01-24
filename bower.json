@@ -23,7 +23,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-redmine": "dashboard-redmine-style#*",
+    "bootstrap-redmine": "*",
     "swp-plugins": "*"
   }
 }
