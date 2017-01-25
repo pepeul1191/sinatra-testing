@@ -39,7 +39,7 @@ before do
 end
 
 get '/' do
-    erb :index, { :layout => :'layouts/application' }
+    erb :'home/index', { :layout => :'layouts/application' }
 end
 
 get '/carreras' do
