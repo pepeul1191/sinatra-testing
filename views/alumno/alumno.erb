@@ -1,0 +1,57 @@
+<div class="row">
+	<h2 class="titulo"><%=@titulo%></h2>
+	<div class="row borde-bajo">
+		<h5 class="subtitulo">Datos del alumno(a)</h5>
+	</div>
+</div>
+</br>
+<div class="row">
+	<div class="col-md-1 workspace-form">
+      <div class="form-group">
+          <label for="txtCodigo">Código</label>
+          <input type="text" class="form-control" id="txtCodigo" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:codigo]%>">
+        </div>
+	</div>
+  <div class="col-md-3 workspace-form">
+      <div class="form-group">
+          <label for="txtNombres">Nombres</label>
+          <input type="text" class="form-control" id="txtNombres" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:nombres]%>">
+        </div>
+	</div>
+  <div class="col-md-4 workspace-form">
+      <div class="form-group">
+          <label for="txtApellidoPaterno">Apellido Paterno</label>
+          <input type="text" class="form-control" id="txtApellidoPaterno" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:apellido_paterno]%>">
+        </div>
+	</div>
+  <div class="col-md-4 workspace-form">
+      <div class="form-group">
+          <label for="txtApellidoMaterno">Apellido Materno</label>
+          <input type="text" class="form-control" id="txtApellidoMaterno" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:apellido_materno]%>">
+        </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-3 workspace-form">
+      <div class="form-group">
+          <label for="slcCarrera">Carrera</label>
+          <select class="form-control" id="slcCarrera" <%if @diasbled==true%>disabled<%end%>>
+              <option value="E"></option>
+              <%@carreras.each do |carrera|%>
+                  <%if carrera[:id] == @alumno[:carrera_id]%>
+                      <option value="<%=carrera[:id]%>" selected><%=carrera[:nombre]%></option>
+                  <%else%>
+                      <option value="<%=carrera[:id]%>"><%=carrera[:nombre]%></option>
+                  <%end%>
+              <%end%>
+          </select>
+        </div>
+	</div>
+  <%if @diasbled == false%>
+  <div class="col-md-3 workspace-form">
+      <div class="form-group">
+          <button class="btn boton-app"><i class="fa fa-check"></i>Guardar Cambios</button>
+      </div>
+  </div>
+  <%end%>
+</div>

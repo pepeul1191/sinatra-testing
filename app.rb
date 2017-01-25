@@ -155,3 +155,34 @@ post '/alumno/guardar'do
 
         rpta
   end
+
+  get '/alumno/ver/:id' do
+      id = params['id']
+      db = SQLite3::Database.open 'db/db_test.db'
+      db.results_as_hash = true
+      stm = db.prepare "SELECT id, codigo, nombres, apellido_paterno, apellido_materno, carrera_id FROM alumnos WHERE id = ?"
+      stm.bind_param 1, id
+      rs = stm.execute
+      alumno = nil
+      rs.each do |row|
+          alumno = { :id => row['id'], :codigo => row['codigo'], :nombres => row['nombres'], :apellido_paterno => row['apellido_paterno'], :apellido_materno => row['apellido_materno'], :carrera_id => row['carrera_id']}
+      end
+
+      db = SQLite3::Database.open 'db/db_test.db'
+      db.results_as_hash = true
+      stm = db.prepare "SELECT id, nombre FROM carreras"
+      rs = stm.execute
+      carreras = Array.new
+      rs.each do |row|
+          carrera = { :id => row['id'], :nombre => row['nombre']}
+          carreras.push(carrera)
+      end
+
+      @titulo = 'Crear Alumno'
+      @alumno = alumno
+      @carreras = carreras
+      @css = ['assets/alumno/css/alumno']
+      @diasbled = true
+      @js = ['assets/alumno/js/alumno']
+      erb :'alumno/alumno', { :layout => :'layouts/application' }
+  end
