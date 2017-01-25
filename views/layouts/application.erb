@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="<%=Url.base_url%>assets/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="<%=Url.base_url%>assets/app/img/favicon.ico" type="image/x-icon">
     <script type="text/javascript">var BASE_URL = '<%=Url.base_url%>';</script>
      <!-- Inicio CSS-->
     <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>bower_components/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>bower_components/bootstrap-redmine/assets/css/styles.css" />
-    <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>assets/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>assets/app/css/styles.css" />
     <%= load_css %>
     <!-- Fin CSS-->
   </head>
@@ -21,9 +21,37 @@
         <button type="button" class="btn btn-primary btn-lg oculto" data-toggle="modal" data-target="#modal-container"  id="btnModal" >Launch demo modal</button>
         <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
         <!-- Fin Modal -->
-        <!-- Inicio Yield-->
-        <%= yield %>
-        <!-- Fin Yield-->
+        <header>
+            <div class="row panel-app">
+              <ul class="lista-header list-inline pull-left">
+                  <li><a href="<%=Url.base_url%>">Home</a></li>
+                  <li><a href="news.asp">Ayuda</a></li>
+              </ul>
+              <ul class="lista-header list-inline pull-right">
+                <li><a href="<%=Url.base_url%>login/ver">Pepe Valdivia</a></li>
+                <li><a href="<%=Url.base_url%>login/cerrar">Salir</a></li>
+              </ul>
+            </div>
+            <div class="row titulo-app">
+              <h1 class="pull-left">Application</h1>
+            </div>
+            <div class="row modulos-app">
+              <ul class="lista-modulos list-inline pull-left">
+                  <li><a href='<%=Url.base_url%>alumnos'>Alumnos</a></li>
+                  <li><a href='<%=Url.base_url%>carreras'>Carreras</a></li>
+              </ul>
+            </div>
+        </header>
+        <div class="body-app">
+            <div class="col-md-12" id="workspace">
+              <!-- Inicio Yield-->
+              <%= yield %>
+              <!-- Fin Yield-->
+            </div>
+        </div>
+        <footer>
+        footer
+       </footer>
         <!-- Inicio JS-->
         <script src="<%= Url.service('statics')%>bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
         <script src="<%= Url.service('statics')%>bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
