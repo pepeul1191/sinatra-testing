@@ -105,8 +105,53 @@ post '/carrera/guardar' do
                  stm.execute
              end
          end
-         rpta = { :tipo_mensaje => "success", :mensaje => ["Se ha registrado los cambios en los agentes", array_nuevos] }.to_json
+         rpta = { :tipo_mensaje => "success", :mensaje => ["Se ha registrado los cambios en las carreras", array_nuevos] }.to_json
      rescue StandardError => e #ZeroDivisionError
-         rpta = { :tipo_mensaje => "error", :mensaje => ["Se ha producido un error en guardar la tabla de agentes", e] }.to_json
+         rpta = { :tipo_mensaje => "error", :mensaje => ["Se ha producido un error en guardar la tabla de carreras", e] }.to_json
      end
 end
+
+get '/alumnos' do
+    @css = ['bower_components/swp-plugins/assets/css/mootools.grid']
+    @js = ['bower_components/swp-plugins/assets/js/mootools.dao', 'bower_components/swp-plugins/assets/js/mootools.form', 'bower_components/swp-plugins/assets/js/mootools.observer', 'bower_components/swp-plugins/assets/js/mootools.grid', 'bower_components/swp-plugins/assets/js/mootools.chain', 'assets/alumno/js/index']
+    erb :'alumno/index', { :layout => :'layouts/application' }
+end
+
+get '/alumno/listar' do
+    db = SQLite3::Database.open 'db/db_test.db'
+    db.results_as_hash = true
+    stm = db.prepare "SELECT A.id, A.codigo, A.nombres, A.apellido_paterno, A.apellido_materno, C.nombre AS carrera FROM alumnos A INNER JOIN carreras C ON A.carrera_id = C.id"
+    rs = stm.execute
+    rpta = Array.new
+    rs.each do |row|
+        temp = { :id => row['id'], :codigo => row['codigo'], :nombres => row['nombres'], :apellido_paterno => row['apellido_paterno'], :apellido_materno => row['apellido_materno'], :carrera => row['carrera']}
+        rpta.push(temp)
+    end
+    rpta.to_json
+end
+
+post '/alumno/guardar'do
+        data = params[:data]
+        array_json_tabla = JSON.parse(data)
+
+        nuevos = array_json_tabla["nuevos"]
+        editados = array_json_tabla["editados"]
+        eliminados = array_json_tabla["eliminados"]
+
+        begin
+            if !eliminados.empty?
+                for i in 0..eliminados.length - 1
+                    id = eliminados[i]
+                    db = SQLite3::Database.open 'db/db_test.db'
+                    stm = db.prepare "DELETE FROM alumnos WHERE id = ?"
+                    stm.bind_param 1, id
+                    stm.execute
+                end
+            end
+            rpta = { :tipo_mensaje => "success", :mensaje => ["Se ha registrado los cambios en los alumnos"] }.to_json
+        rescue StandardError => e #ZeroDivisionError
+            rpta = { :tipo_mensaje => "error", :mensaje => ["Se ha producido un error en guardar la tabla de alumnos", e] }.to_json
+        end
+
+        rpta
+  end
