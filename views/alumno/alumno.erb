@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="col-md-1 workspace-form">
       <div class="form-group">
-          <label for="txtCodigo">Código</label><label id="lblId"><%if defined? @alumno[:id]%><%=@alumno[:id]%><%else%>E<%end%></label>
+          <label for="txtCodigo">Código</label><label class="oculto" id="lblId"><%if defined? @alumno[:id]%><%=@alumno[:id]%><%else%>E<%end%></label>
           <input type="text" class="form-control" id="txtCodigo" <%if @diasbled==true%>disabled<%end%> value="<%if defined? @alumno[:codigo]%><%=@alumno[:codigo]%><%end%>">
         </div>
 	</div>
