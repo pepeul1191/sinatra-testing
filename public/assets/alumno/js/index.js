@@ -25,7 +25,7 @@ var array_json_btn_td = [
 ];
 
 var array_json_btn = [
-	{tipo: "agrega_fila", operacion:"AgregarFila", icono: "fa fa-plus", label: "Agregar Registro", clase: "boton-tabla  mootools"},
+	{tipo: "agrega_fila", operacion:"IrURL", icono: "fa fa-plus", label: "Agregar Registro", clase: "boton-tabla  mootools"},
 	{tipo: "guardar_tabla", operacion:"GuardarTabla", icono: "fa fa-check", label: "Guardar Cambios", clase: "boton-tabla  mootools" }
 ];
 
@@ -40,7 +40,8 @@ tablaAlumno.SetTableHeader(array_json_th);
 tablaAlumno.SetTableBody(array_json_td, array_json_btn_td, ajax_dao_tipo_activos);
 tablaAlumno.SetTableFooter(array_json_btn, false);
 tablaAlumno.SetLabelMensaje("#txtMensajeRpta");
-tablaAlumno.SetURLGuardar(BASE_URL + "alumno/guardar");
+tablaAlumno.SetURLNuevo(BASE_URL + "alumno/agregar");
+tablaAlumno.SetURLGuardar(BASE_URL + "alumno/eliminar");
 
 tablaAlumno.MostrarTable();
 

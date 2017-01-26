@@ -1,33 +1,34 @@
 <div class="row">
 	<h2 class="titulo"><%=@titulo%></h2>
 	<div class="row borde-bajo">
-		<h5 class="subtitulo">Datos del alumno(a)</h5>
+		  <h5 class="subtitulo">Datos del alumno(a)</h5>
+      <label id="lblMensaje" class="mensaje"></label>
 	</div>
 </div>
 </br>
 <div class="row">
 	<div class="col-md-1 workspace-form">
       <div class="form-group">
-          <label for="txtCodigo">Código</label>
-          <input type="text" class="form-control" id="txtCodigo" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:codigo]%>">
+          <label for="txtCodigo">Código</label><label id="lblId"><%if defined? @alumno[:id]%><%=@alumno[:id]%><%else%>E<%end%></label>
+          <input type="text" class="form-control" id="txtCodigo" <%if @diasbled==true%>disabled<%end%> value="<%if defined? @alumno[:codigo]%><%=@alumno[:codigo]%><%end%>">
         </div>
 	</div>
   <div class="col-md-3 workspace-form">
       <div class="form-group">
           <label for="txtNombres">Nombres</label>
-          <input type="text" class="form-control" id="txtNombres" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:nombres]%>">
+          <input type="text" class="form-control" id="txtNombres" <%if @diasbled==true%>disabled<%end%> value="<%if defined? @alumno[:nombres]%><%=@alumno[:nombres]%><%end%>">
         </div>
 	</div>
   <div class="col-md-4 workspace-form">
       <div class="form-group">
           <label for="txtApellidoPaterno">Apellido Paterno</label>
-          <input type="text" class="form-control" id="txtApellidoPaterno" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:apellido_paterno]%>">
+          <input type="text" class="form-control" id="txtApellidoPaterno" <%if @diasbled==true%>disabled<%end%> value="<%if defined? @alumno[:apellido_paterno]%><%=@alumno[:apellido_paterno]%><%end%>">
         </div>
 	</div>
   <div class="col-md-4 workspace-form">
       <div class="form-group">
           <label for="txtApellidoMaterno">Apellido Materno</label>
-          <input type="text" class="form-control" id="txtApellidoMaterno" <%if @diasbled==true%>disabled<%end%> value="<%=@alumno[:apellido_materno]%>">
+          <input type="text" class="form-control" id="txtApellidoMaterno" <%if @diasbled==true%>disabled<%end%> value="<%if defined? @alumno[:apellido_materno]%><%=@alumno[:apellido_materno]%><%end%>">
         </div>
 	</div>
 </div>
@@ -38,19 +39,23 @@
           <select class="form-control" id="slcCarrera" <%if @diasbled==true%>disabled<%end%>>
               <option value="E"></option>
               <%@carreras.each do |carrera|%>
-                  <%if carrera[:id] == @alumno[:carrera_id]%>
-                      <option value="<%=carrera[:id]%>" selected><%=carrera[:nombre]%></option>
-                  <%else%>
-                      <option value="<%=carrera[:id]%>"><%=carrera[:nombre]%></option>
+                  <%if defined? @alumno[:carrera_id]%>
+                      <%if carrera[:id] == @alumno[:carrera_id]%>
+                          <option value="<%=carrera[:id]%>" selected><%=carrera[:nombre]%></option>
+                      <%else%>
+                          <option value="<%=carrera[:id]%>"><%=carrera[:nombre]%></option>
+                      <%end%>
+                 <%else%>
+                        <option value="<%=carrera[:id]%>"><%=carrera[:nombre]%></option>
                   <%end%>
               <%end%>
           </select>
         </div>
 	</div>
   <%if @diasbled == false%>
-  <div class="col-md-3 workspace-form">
+  <div class="col-md-2 workspace-form">
       <div class="form-group">
-          <button class="btn boton-app"><i class="fa fa-check"></i>Guardar Cambios</button>
+          <button class="btn boton-app" id="btnGuardar"><i class="fa fa-check"></i>Guardar Cambios</button>
       </div>
   </div>
   <%end%>

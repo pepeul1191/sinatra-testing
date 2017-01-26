@@ -1,1 +1,8 @@
+.subtitulo{position: relative;float: left;}
+.mensaje{position: relative;float: right; margin-top: 9px;}
 
+.input-text-error{border-color: #a94442}
+.input-text-error::-webkit-input-placeholder { color: #a94442; } /* WebKit */
+.input-text-error:-moz-placeholder { color: #a94442; } /* Firefox 18- */
+.input-text-error::-moz-placeholder { color: #a94442; } /* Firefox 19+ */
+.input-text-error:-ms-input-placeholder { color: #a94442; } /* IE 10+ */

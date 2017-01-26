@@ -130,7 +130,7 @@ get '/alumno/listar' do
     rpta.to_json
 end
 
-post '/alumno/guardar'do
+post '/alumno/eliminar'do
         data = params[:data]
         array_json_tabla = JSON.parse(data)
 
@@ -178,11 +178,89 @@ post '/alumno/guardar'do
           carreras.push(carrera)
       end
 
-      @titulo = 'Crear Alumno'
+      @titulo = 'Ver Alumno'
       @alumno = alumno
       @carreras = carreras
       @css = ['assets/alumno/css/alumno']
       @diasbled = true
+      erb :'alumno/alumno', { :layout => :'layouts/application' }
+  end
+
+  get '/alumno/agregar' do
+      db = SQLite3::Database.open 'db/db_test.db'
+      db.results_as_hash = true
+      stm = db.prepare "SELECT id, nombre FROM carreras"
+      rs = stm.execute
+      carreras = Array.new
+      rs.each do |row|
+          carrera = { :id => row['id'], :nombre => row['nombre']}
+          carreras.push(carrera)
+      end
+
+      @titulo = 'Crear Alumno'
+      @carreras = carreras
+      @css = ['assets/alumno/css/alumno']
+      @diasbled = false
       @js = ['assets/alumno/js/alumno']
       erb :'alumno/alumno', { :layout => :'layouts/application' }
   end
+
+post '/alumno/existe_codigo' do
+    codigo = params[:data]
+    begin
+        db = SQLite3::Database.open 'db/db_test.db'
+        db.results_as_hash = true
+        stm = db.prepare "SELECT (CASE WHEN (COUNT(*) > 0) THEN 'true' ELSE 'false' END) AS existe FROM alumnos WHERE codigo = " + codigo.to_s
+        #stm.bind_param 1, codigo
+        rs = stm.execute
+        rs.each do |row; temp|
+            existe =  row['existe']
+            if existe == "true"
+        		    temp = true
+                return { :tipo_mensaje => "success", :mensaje => temp }.to_json
+            else
+                 temp = false
+                 return { :tipo_mensaje => "success", :mensaje => temp }.to_json
+        		end
+        end
+    rescue SQLite3::Exception => e
+        return { :tipo_mensaje => "error", :mensaje => ["Se ha producido un error al verificar si el código se encuentra repetido", e] }.to_json
+    ensure
+        stm.close if stm
+        db.close if db
+    end
+end
+
+post '/alumno/guardar' do
+    alumno = JSON.parse(params[:alumno])
+    begin
+        if alumno['id'] == 'E'
+            db = SQLite3::Database.open 'db/db_test.db'
+            stm = db.prepare "INSERT INTO alumnos (codigo, nombres, apellido_paterno, apellido_materno, carrera_id) VALUES (?,?,?,?,?)"
+            stm.bind_param 1, alumno['codigo']
+            stm.bind_param 2, alumno['nombres']
+            stm.bind_param 3, alumno['apellido_paterno']
+            stm.bind_param 4, alumno['apellido_materno']
+            stm.bind_param 5, alumno['carrera_id']
+            stm.execute
+            id_generado = db.last_insert_row_id()
+            return { :tipo_mensaje => "success", :mensaje => ["Se ha añadido un nuevo alumno(a)", id_generado] }.to_json
+        else
+            db = SQLite3::Database.open 'db/db_test.db'
+            stm = db.prepare "UPDATE alumnos SET codigo = ?, nombres = ?, apellido_paterno = ?, apellido_materno = ?, carrera_id = ? WHERE id = ?"
+            stm.bind_param 1, alumno['codigo']
+            stm.bind_param 2, alumno['nombres']
+            stm.bind_param 3, alumno['apellido_paterno']
+            stm.bind_param 4, alumno['apellido_materno']
+            stm.bind_param 5, alumno['carrera_id']
+            stm.bind_param 6, alumno['id']
+            stm.execute
+            return { :tipo_mensaje => "success", :mensaje => ["Se ha editado un alumno(a)"] }.to_json
+        end
+    rescue SQLite3::Exception => e
+        return { :tipo_mensaje => "error", :mensaje => ["Se ha producido un error al guardar al alumno(a)", e] }.to_json
+    ensure
+        stm.close if stm
+        db.close if db
+    end
+end
