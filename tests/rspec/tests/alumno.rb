@@ -24,7 +24,6 @@ def crear
        codigos.push(codigo)
     end
 
-
     temp = nil
     k = 0
     RSpec.describe App do
@@ -128,35 +127,62 @@ def editar
 end
 
 def ver
+    file = File.new("data/alumnos.txt", "r")
+    ids = Array.new
+
+    while (line = file.gets)
+        line_array = line.split('::')
+        id = line_array[0].strip
+       
+       ids.push(id)
+    end
+
     temp = nil
     RSpec.describe App do
         describe "1. CRUD - Ver Alumno : " do
-            it "mostrar lista HTML" do
-                test =App.new('alumnos')
-                test.get
-                expect(test.response.code).to eq(200)
-            end
-            it "listar alumnos" do
-                test =App.new('alumno/listar')
-                test.get
-                temp = test.body_to_json.length
-                expect(test.response.code).to eq(200)
-            end
-            it "mostrar formulario ver" do
-                test =App.new('alumno/ver/2')
-                test.get
-                expect(test.response.code).to eq(200)
-            end
-            it "poblar combo carreras" do
-                test =App.new('carrera/listar')
-                test.get
-                expect(test.response.code).to eq(200)
+            ids.each do |id|
+                it "mostrar lista HTML" do
+                    test =App.new('alumnos')
+                    test.get
+                    expect(test.response.code).to eq(200)
+                end
+                it "listar alumnos" do
+                    test =App.new('alumno/listar')
+                    test.get
+                    temp = test.body_to_json.length
+                    expect(test.response.code).to eq(200)
+                end
+                it "mostrar formulario ver" do
+                    puts id
+                    test =App.new('alumno/ver/' + id.to_s)
+                    test.get
+                    expect(test.response.code).to eq(200)
+                end
+                it "poblar combo carreras" do
+                    test =App.new('carrera/listar')
+                    test.get
+                    expect(test.response.code).to eq(200)
+                end
             end
         end
     end
 end
 
 def eliminar
+    file = File.new("data/alumnos.txt", "r")
+
+    codigos_eliminar = ''
+
+    while (line = file.gets)
+        line_array = line.split('::')
+
+       id = line_array[0].strip
+
+       codigos_eliminar =  codigos_eliminar + '"' + id.to_s + '",'
+    end
+
+    codigos_eliminar = codigos_eliminar[0...codigos_eliminar.length - 1]
+    #puts codigos_eliminar
     temp = nil
     RSpec.describe App do
         describe "1. CRUD - Ver Alumno : " do
@@ -166,7 +192,7 @@ def eliminar
                 expect(test.response.code).to eq(200)
             end
             it "eliminar alumnos" do
-                test = App.new('alumno/eliminar?data={"nuevos":[],"editados":[],"eliminados":["3","4","5","6","7","8"]}')
+                test = App.new('alumno/eliminar?data={"nuevos":[],"editados":[],"eliminados":[' + codigos_eliminar + ']}')
                 test.post
                 expect(test.response.body).not_to include('Excepción capturada')
                 expect(test.response.body).to include('{"tipo_mensaje":"success","mensaje":["Se ha registrado los cambios en los alumnos')
@@ -177,5 +203,5 @@ end
 
 crear
 #editar
-#ver
-#eliminar
+ver
+eliminar

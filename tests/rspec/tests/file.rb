@@ -17,4 +17,20 @@ while (line = file.gets)
    arreglo.push(url_str)
 end
 
-puts arreglo
+#puts arreglo
+
+file = File.new("data/alumnos.txt", "r")
+
+codigos_eliminar = ''
+
+while (line = file.gets)
+    line_array = line.split('::')
+
+	id = line_array[0].strip
+
+   codigos_eliminar =  codigos_eliminar + '"' + id.to_s + '",'
+end
+
+codigos_eliminar = codigos_eliminar[0...codigos_eliminar.length - 1]
+
+puts codigos_eliminar
