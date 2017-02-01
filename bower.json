@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "bootstrap-redmine": "*",
-    "swp-plugins": "*"
+    "swp-plugins": "*",
+    "qunit": "^2.1.1"
   }
 }

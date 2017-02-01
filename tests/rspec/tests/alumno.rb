@@ -231,6 +231,6 @@ def eliminar
 end
 
 crear
-editar
-ver
-eliminar
+#editar
+#ver
+#eliminar

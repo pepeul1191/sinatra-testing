@@ -34,6 +34,17 @@ helpers do
        end
        rpta
     end
+
+    def load_test_js
+        rpta = ''
+        if defined? @test_js
+           @test_js.each do |n|
+               temp = '<script src="' + Url.service('test_js') + n + '.js" type="text/javascript"></script>'
+               rpta = rpta + temp
+           end
+       end
+       rpta
+    end
 end
 
 before do
@@ -116,6 +127,8 @@ end
 get '/alumnos' do
     @css = ['bower_components/swp-plugins/assets/css/mootools.grid']
     @js = ['bower_components/swp-plugins/assets/js/mootools.dao', 'bower_components/swp-plugins/assets/js/mootools.form', 'bower_components/swp-plugins/assets/js/mootools.observer', 'bower_components/swp-plugins/assets/js/mootools.grid', 'bower_components/swp-plugins/assets/js/mootools.chain', 'assets/alumno/js/index']
+    @test_js = ['alumno/index_test']
+    @qunit = true
     erb :'alumno/index', { :layout => :'layouts/application' }
 end
 
