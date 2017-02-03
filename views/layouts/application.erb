@@ -8,6 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="<%=Url.base_url%>assets/app/img/favicon.ico" type="image/x-icon">
     <script type="text/javascript">var BASE_URL = '<%=Url.base_url%>';</script>
+    <%if defined? @qunit%><script type="text/javascript">var BASE_URL_TEST = '<%=Url.service("test_js")%>';</script><%end%>
      <!-- Inicio CSS-->
     <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<%= Url.service('statics')%>bower_components/font-awesome/css/font-awesome.min.css" />
