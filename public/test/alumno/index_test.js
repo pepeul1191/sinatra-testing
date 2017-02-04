@@ -59,6 +59,32 @@ QUnit.test( "La tabla debe redireccionar a una nueva vista para ver un alumno", 
   	btn_ver.click();
 });
 
+QUnit.test( "La tabla debe no redireccionar a una nueva vista de un alumno a ver si no existe el alumno", function( assert ) {
+  	var btn_ver = $(this.id_tabla).children(0).children().eq(1).children().last().children().eq(0);
+  	
+  	btn_ver.on( "click", function() {
+   	 	assert.ok( 1 == "1", "Click articio" );
+   	 	$.ajax({
+		    type: "GET",
+		    url: BASE_URL + "alumno/ver/2000",
+		    data: '',
+		    success: function(data,status,xhr){
+
+		    },
+		    error: function(xhr, status, error){
+		       	
+		    },
+		    complete: function(xhr){
+		    	var status = xhr.status;
+		    	assert.equal(status, 404, "Vista redireccionada debe ser al 404 ya que el alumno a ver no existe");
+		    }
+		});
+   	 	return false;
+  	});
+
+  	btn_ver.click();
+});
+
 QUnit.test( "La tabla debe redireccionar a una nueva vista para editar un alumno", function( assert ) {
   	var btn_editar = $(this.id_tabla).children(0).children().eq(1).children().last().children().eq(1);
   	
@@ -84,6 +110,32 @@ QUnit.test( "La tabla debe redireccionar a una nueva vista para editar un alumno
   	});
 
   	btn_editar.click();
+});
+
+QUnit.test( "La tabla debe no redireccionar a una nueva vista de un alumno a editar si no existe el alumno", function( assert ) {
+  	var btn_ver = $(this.id_tabla).children(0).children().eq(1).children().last().children().eq(0);
+  	
+  	btn_ver.on( "click", function() {
+   	 	assert.ok( 1 == "1", "Click articio" );
+   	 	$.ajax({
+		    type: "GET",
+		    url: BASE_URL + "alumno/editar/2000",
+		    data: '',
+		    success: function(data,status,xhr){
+
+		    },
+		    error: function(xhr, status, error){
+		       	
+		    },
+		    complete: function(xhr){
+		    	var status = xhr.status;
+		    	assert.equal(status, 404, "Vista redireccionada debe ser al 404 ya que el alumno a editar no existe");
+		    }
+		});
+   	 	return false;
+  	});
+
+  	btn_ver.click();
 });
 
 QUnit.test( "Los eliminados al precionar el botón eliminar debe coincidir con en arreglo de eliminados de la tabla", function( assert ) {
