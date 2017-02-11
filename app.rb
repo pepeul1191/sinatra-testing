@@ -214,9 +214,9 @@ post '/alumno/eliminar'do
 
       @titulo = 'Crear Alumno'
       @carreras = carreras
-      @css = ['assets/alumno/css/alumno']
       @diasbled = false
-      @js = ['assets/alumno/js/alumno']
+      @css = ['assets/alumno/css/alumno', 'bower_components/swp-plugins/assets/css/mootools.validations']
+      @js = ['assets/alumno/js/alumno', 'bower_components/swp-plugins/assets/js/mootools.validations']
       erb :'alumno/alumno', { :layout => :'layouts/application' }
   end
 
@@ -305,8 +305,8 @@ get '/alumno/editar/:id' do
     @titulo = 'Editar Alumno'
     @alumno = alumno
     @carreras = carreras
-    @css = ['assets/alumno/css/alumno']
+    @css = ['assets/alumno/css/alumno', 'bower_components/swp-plugins/assets/css/mootools.validations']
+    @js = ['assets/alumno/js/alumno', 'bower_components/swp-plugins/assets/js/mootools.validations']
     @diasbled = false
-    @js = ['assets/alumno/js/alumno']
     erb :'alumno/alumno', { :layout => :'layouts/application' }
 end
