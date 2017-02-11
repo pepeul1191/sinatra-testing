@@ -133,7 +133,7 @@ get '/alumnos' do
     @css = ['bower_components/swp-plugins/assets/css/mootools.grid']
     @js = ['bower_components/swp-plugins/assets/js/mootools.dao', 'bower_components/swp-plugins/assets/js/mootools.form', 'bower_components/swp-plugins/assets/js/mootools.observer', 'bower_components/swp-plugins/assets/js/mootools.grid', 'bower_components/swp-plugins/assets/js/mootools.chain', 'assets/alumno/js/index']
     @test_js = ['alumno/index_test']
-    @qunit = true
+    @qunit = false
     erb :'alumno/index', { :layout => :'layouts/application' }
 end
 
@@ -238,6 +238,8 @@ post '/alumno/eliminar'do
       @diasbled = false
       @css = ['assets/alumno/css/alumno', 'bower_components/swp-plugins/assets/css/mootools.validations']
       @js = ['assets/alumno/js/alumno', 'bower_components/swp-plugins/assets/js/mootools.validations']
+      @test_js = ['alumno/alumno_crear_test']
+      @qunit = true
       erb :'alumno/alumno', { :layout => :'layouts/application' }
   end
 
@@ -345,5 +347,7 @@ get '/alumno/editar/:id' do
     @css = ['assets/alumno/css/alumno', 'bower_components/swp-plugins/assets/css/mootools.validations']
     @js = ['assets/alumno/js/alumno', 'bower_components/swp-plugins/assets/js/mootools.validations']
     @diasbled = false
+    @test_js = ['alumno/alumno_test']
+    @qunit = true
     erb :'alumno/alumno', { :layout => :'layouts/application' }
 end

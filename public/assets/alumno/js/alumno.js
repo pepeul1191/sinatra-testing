@@ -1,3 +1,5 @@
+var validaciones;
+
 var Alumno = new Class({
     initialize: function(){
         var alumno = new Object();
@@ -57,7 +59,7 @@ $(document).on("click", "#btnGuardar",function() {
     var codigo_no_repetido = new Validacion("#txtCodigo", "El código ingresado ya se encuentra registrado"); codigo_no_repetido.ValidarRepetido(BASE_URL + "alumno/existe_codigo", "Ha ocurrido un error en validar el código");
     var carrera_seleccionada = new Validacion("#slcCarrera", "Debe selccionar una carrera"); carrera_seleccionada.ValidarSelect();
 
-    var validaciones = [paterno_valido.rpta, materno_valido.rpta, nombres_valido.rpta, codigo_no_repetido.rpta, carrera_seleccionada.rpta];
+    validaciones = [paterno_valido.rpta, materno_valido.rpta, nombres_valido.rpta, codigo_no_repetido.rpta, carrera_seleccionada.rpta];
    
    var alumno = new Alumno(); alumno.Guardar(validaciones); 
 });
