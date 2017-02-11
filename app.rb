@@ -55,6 +55,11 @@ get '/' do
     erb :'home/index', { :layout => :'layouts/application' }
 end
 
+get '/access/error/404' do
+    status 404
+    '<h1>404</h1>'
+end
+
 get '/carreras' do
     @css = ['bower_components/swp-plugins/assets/css/mootools.grid']
     @js = ['bower_components/swp-plugins/assets/js/mootools.dao', 'bower_components/swp-plugins/assets/js/mootools.form', 'bower_components/swp-plugins/assets/js/mootools.observer', 'bower_components/swp-plugins/assets/js/mootools.grid', 'bower_components/swp-plugins/assets/js/mootools.chain', 'assets/carrera/js/index']
@@ -171,6 +176,22 @@ post '/alumno/eliminar'do
         rpta
   end
 
+  before '/alumno/ver/:id' do
+    id = params['id']
+    db = SQLite3::Database.open 'db/db_test.db'
+    db.results_as_hash = true
+    stm = db.prepare "SELECT COUNT(*) AS cantidad FROM alumnos WHERE id = ?"
+    stm.bind_param 1, id
+    rs = stm.execute
+    existe = nil
+    rs.each do |row|
+        existe = { :cantidad => row['cantidad'] }
+    end
+    if existe[:cantidad] == 0
+        redirect Url.base_url + 'access/error/404'
+    end
+  end
+
   get '/alumno/ver/:id' do
       id = params['id']
       db = SQLite3::Database.open 'db/db_test.db'
@@ -277,6 +298,22 @@ post '/alumno/guardar' do
     ensure
         stm.close if stm
         db.close if db
+    end
+end
+
+before '/alumno/editar/:id' do
+    id = params['id']
+    db = SQLite3::Database.open 'db/db_test.db'
+    db.results_as_hash = true
+    stm = db.prepare "SELECT COUNT(*) AS cantidad FROM alumnos WHERE id = ?"
+    stm.bind_param 1, id
+    rs = stm.execute
+    existe = nil
+    rs.each do |row|
+        existe = { :cantidad => row['cantidad'] }
+    end
+    if existe[:cantidad] == 0
+        redirect Url.base_url + 'access/error/404'
     end
 end
 
