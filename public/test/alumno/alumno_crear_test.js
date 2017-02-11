@@ -23,7 +23,7 @@ QUnit.test( "Probando la validación de código repetido", function( assert ) {
 	  	assert.equal($("#lblMensaje").hasClass("color-rojo") && $("#lblMensaje").hasClass("mensaje") && $("#lblMensaje").html() == "No se pudo guardar al alumno, llene los campos obligatorios", true, "Mensaje de que falta llenar algún campo obligatorio ok");
   	}
 
-  	var codigo_aletorio_no_repetido = Math.floor(Math.random()*(20050299 - 20050200 + 1) + 20050200);
+  	var codigo_aletorio_no_repetido = Math.floor(Math.random()*(20080299 - 20050200 + 1) + 20050200);
   	$("#txtCodigo").val(codigo_aletorio_no_repetido);  	
 	$("#btnGuardar").trigger("click");
 	assert.equal($("#txtCodigo").hasClass("input-text-error"), false, "El código aletorio no es repetido");
@@ -41,7 +41,7 @@ QUnit.test( "Probando que se selccione una carrera", function( assert ) {
 		var id_carrera_seleccionada = Math.floor(Math.random()*(4 - 1 + 1) + 1);
 		$("#slcCarrera").val(id_carrera_seleccionada); 
 	  	$("#btnGuardar").trigger("click");
-	  	assert.equal($("#txtCodigo").hasClass("input-text-error"), false, "Carrara seleccionada ok");
+	  	assert.equal($("#txtCodigo").hasClass("input-text-error"), false, "Carrera seleccionada ok");
 	  	assert.equal($("#lblMensaje").hasClass("color-rojo") && $("#lblMensaje").hasClass("mensaje") && $("#lblMensaje").html() == "No se pudo guardar al alumno, llene los campos obligatorios", true, "Mensaje de que falta llenar algún campo obligatorio ok");
   	}
 });

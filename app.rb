@@ -347,7 +347,7 @@ get '/alumno/editar/:id' do
     @css = ['assets/alumno/css/alumno', 'bower_components/swp-plugins/assets/css/mootools.validations']
     @js = ['assets/alumno/js/alumno', 'bower_components/swp-plugins/assets/js/mootools.validations']
     @diasbled = false
-    @test_js = ['alumno/alumno_test']
+    @test_js = ['alumno/alumno_editar_test']
     @qunit = true
     erb :'alumno/alumno', { :layout => :'layouts/application' }
 end
