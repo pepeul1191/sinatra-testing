@@ -1,4 +1,4 @@
-QUnit.module( "Guardar Alumno", {
+QUnit.module( "Guardar Alumno - Editar", {
 	beforeEach: function() {
 	}
 });
@@ -68,7 +68,7 @@ QUnit.test( "Llenando el apellido paterno, materno y nombres y guardar el alumno
 	$("#txtApellidoPaterno").val(filas_datos[numero_fila][3]);
 	$("#txtApellidoMaterno").val(filas_datos[numero_fila][4]);
 	$("#txtNombres").	val(filas_datos[numero_fila][2]);
-	
+
 	var codigo_aletorio_no_repetido = Math.floor(Math.random()*(20080299 - 20050200 + 1) + 20050200);
   	$("#txtCodigo").val(codigo_aletorio_no_repetido);  	
 

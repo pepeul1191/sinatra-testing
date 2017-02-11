@@ -219,6 +219,8 @@ post '/alumno/eliminar'do
       @carreras = carreras
       @css = ['assets/alumno/css/alumno']
       @diasbled = true
+      @test_js = ['alumno/alumno_ver_test']
+      @qunit = true
       erb :'alumno/alumno', { :layout => :'layouts/application' }
   end
 

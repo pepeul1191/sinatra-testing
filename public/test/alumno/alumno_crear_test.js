@@ -1,4 +1,4 @@
-QUnit.module( "Guardar Alumno", {
+QUnit.module( "Guardar Alumno - Crear", {
 	beforeEach: function() {
 	}
 });
