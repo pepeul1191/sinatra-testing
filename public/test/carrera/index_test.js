@@ -110,11 +110,19 @@ QUnit.test( "Llenar los campos generados anterioremente y guardarlos", function(
 	    var tbody = $(this.id_tabla).children().eq(1);
 	    var tr = tbody.children().eq(k - 1).children().eq(1);
 	    var input_text = tr.children().eq(0);
-	    console.log(input_text);
+	    
 	    input_text.val(datos[1]);
+		
+		var e = jQuery.Event("keydown");
+		e.which = 32; // # Some key code value
+		e.keyCode = 32
+		input_text.trigger(e);
+		e.which = 8; // # Some key code value
+		e.keyCode = 8
+		input_text.trigger(e);
 	}
 
-	//boton_guardar_cambios.trigger("click");
+	boton_guardar_cambios.trigger("click");
 
 	assert.equal(0, 0, "Deben de haberse agregado 8 filas");
 });
