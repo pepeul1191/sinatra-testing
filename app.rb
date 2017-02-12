@@ -63,6 +63,8 @@ end
 get '/carreras' do
     @css = ['bower_components/swp-plugins/assets/css/mootools.grid']
     @js = ['bower_components/swp-plugins/assets/js/mootools.dao', 'bower_components/swp-plugins/assets/js/mootools.form', 'bower_components/swp-plugins/assets/js/mootools.observer', 'bower_components/swp-plugins/assets/js/mootools.grid', 'bower_components/swp-plugins/assets/js/mootools.chain', 'assets/carrera/js/index']
+    @test_js = ['carrera/index_test']
+    @qunit = true
     erb :'carrera/index', { :layout => :'layouts/application' }
 end
 

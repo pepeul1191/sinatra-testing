@@ -1,0 +1,8 @@
+1::Arquitectura XD\n
+2::Ingeniería de Sistemas XD\n
+3::Ingeniería Industrial XD\n
+4::Ingenería Civil XD\n
+5::Administración XD\n
+6::Economía XD\n
+7::Marketing XD\n
+8::Negocios XD\n

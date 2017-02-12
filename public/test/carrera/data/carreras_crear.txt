@@ -1,0 +1,8 @@
+1::Arquitectura\n
+2::Ingeniería de Sistemas\n
+3::Ingeniería Industrial\n
+4::Ingenería Civil\n
+5::Administración\n
+6::Economía\n
+7::Marketing\n
+8::Negocios\n
